@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Obry | App Inteligente para la Construcción</title>
+  <meta name="description" content="Obry es una app inteligente para la industria de la construcción. Planificá, monitoreá y tomá mejores decisiones en obra con IA." />
+
+  <style>
+    :root {
+      --dark: #030405;
+      --dark-2: #040508;
+      --gold: gold;
+      --gold-soft: #f1d17e;
+      --text: #E5E7EB;
+      --muted: #9CA3AF;
+      --border: #1f2933;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 80px 24px;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(11,15,20,.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+      padding: 16px 24px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      margin-left: 24px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .cta {
+      margin-left: 32px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #000;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 120px 24px;
+      background: radial-gradient(circle at top, #1a2233, var(--dark));
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .hero p {
+      margin-top: 20px;
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 760px;
+      margin-inline: auto;
+    }
+
+    .hero-buttons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    section p {
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .card h3 {
+      color: var(--gold);
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .workflow {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 220px;
+      background: var(--dark-2);
+      border-left: 3px solid var(--gold);
+      padding: 24px;
+      border-radius: 8px;
+    }
+
+    .final {
+      text-align: center;
+      background: linear-gradient(135deg, #1a2233, #0b0f14);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">OBRY</div>
+    <nav>
+      <a href="#">App</a>
+      <a href="#">Proyecto</a>
+      <a href="#">Libro de Obra</a>
+      <a href="#">Ingeniero GPT</a>
+      <a class="cta" href="#">Solicitar Demo</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Obry es el sistema operativo de la construcción moderna</h1>
+  <p>
+    Obry centraliza la información del proyecto, mejora la colaboración del equipo y ofrece herramientas prácticas para ingenieros, todo desde una sola app.
+  </p>
+  <div class="hero-buttons">
+    <a class="cta" href="#">Solicitar Demo</a>
+    <a class="btn-secondary" href="#">Ver la App</a>
+  </div>
+</section>
+
+<section class="container">
+  <h2>Un solo lugar para toda la información del proyecto</h2>
+  <p>
+    Archivos, avances, personal, materiales, maquinaria y decisiones técnicas organizadas y accesibles para todo el equipo, siempre con la misma versión de la información.
+  </p>
+</section>
+
+<section class="container">
+  <h2>Gestión Completa del Proyecto</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Personal</h3>
+      <p>Administrá trabajadores, roles, asistencia y asignaciones por obra.</p>
+    </div>
+    <div class="card">
+      <h3>Materiales</h3>
+      <p>Control de insumos, consumos y referencias de costos.</p>
+    </div>
+    <div class="card">
+      <h3>Maquinaria</h3>
+      <p>Seguimiento de equipos, uso, disponibilidad y estado.</p>
+    </div>
+    <div class="card">
+      <h3>Archivos Técnicos</h3>
+      <p>Planos, contratos, fotos y documentos siempre ordenados.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>Libro de Obra Digital</h2>
+  <p>
+    Registrá el avance diario del proyecto, incidencias, clima, personal y decisiones técnicas, todo dentro de un <strong>Libro de Obra digital</strong> centralizado.
+  </p>
+  <div class="grid">
+    <div class="card">
+      <h3>Seguimiento Diario</h3>
+      <p>Avances, novedades y observaciones desde el celular.</p>
+    </div>
+    <div class="card">
+      <h3>Reportes Firmados</h3>
+      <p>Generación de reportes oficiales listos para firma.</p>
+    </div>
+    <div class="card">
+      <h3>Historial del Proyecto</h3>
+      <p>Toda la trazabilidad de la obra en un solo lugar.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>Ingeniero GPT</h2>
+  <p>
+    Obry incluye un <strong>ingeniero virtual</strong> que analiza la información del proyecto y te asiste en la toma de decisiones técnicas.
+  </p>
+  <div class="grid">
+    <div class="card">
+      <h3>Análisis del Proyecto</h3>
+      <p>Interpreta datos, avances y registros de la obra.</p>
+    </div>
+    <div class="card">
+      <h3>Normativas de Paraguay</h3>
+      <p>Conocimiento actualizado de reglamentos y prácticas locales.</p>
+    </div>
+    <div class="card">
+      <h3>Soporte Técnico</h3>
+      <p>Respuestas claras y contextualizadas para ingenieros.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>Cómo se Usa Obry</h2>
+  <div class="workflow">
+    <div class="step">
+      <h3>1. Organizás el proyecto</h3>
+      <p>Personas, recursos, archivos y estructura.</p>
+    </div>
+    <div class="step">
+      <h3>2. El equipo colabora</h3>
+      <p>Todos trabajan con la misma información.</p>
+    </div>
+    <div class="step">
+      <h3>3. Registrás y decidís</h3>
+      <p>Libro de Obra, reportes y asistencia técnica.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container final">
+  <h2>Orden, Colaboración y Control Real</h2>
+  <p>Obry se convierte en el centro operativo de tu obra.</p>
+  <div class="hero-buttons">
+    <a class="cta" href="#">Solicitar Demo</a>
+    <a class="btn-secondary" href="#">Acceder a la App</a>
+  </div>
+</section>
+
+<footer>
+  © 2025 Obry Tech · App de gestión y colaboración para construcción · LinkedIn
+</footer>
+
+</body>
+</html>
