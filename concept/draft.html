@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Obry | App Inteligente para la Construcción</title>
+  <meta name="description" content="Obry es una app de gestión para la construcción con seguridad enterprise. Centralizá proyectos, colaborá en equipo y gestioná obras con control total y datos protegidos." />
+
+  <style>
+    :root {
+      --dark: #030405;
+      --dark-2: #040508;
+      --gold: gold;
+      --gold-soft: #f1d17e;
+      --text: #E5E7EB;
+      --muted: #9CA3AF;
+      --border: #1f2933;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, system-ui, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 80px 24px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(11,15,20,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+      padding: 16px 24px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      margin-left: 24px;
+      font-size: 14px;
+      color: var(--muted);
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .cta {
+      margin-left: 32px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #000;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .menu-toggle.active {
+      position: fixed;
+      right: 24px;
+      top: 20px;
+      z-index: 1002;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 120px 24px;
+      background: radial-gradient(circle at top, #1a2233, var(--dark));
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      max-width: 900px;
+      margin: auto;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+      margin-top: 20px;
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 780px;
+      margin-inline: auto;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .hero strong {
+      color: var(--gold);
+    }
+
+    .hero-buttons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .btn-secondary {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gold);
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    section p {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 12px 24px rgba(255, 215, 0, 0.1);
+    }
+
+    .card h3 {
+      color: var(--gold);
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .workflow {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 220px;
+      background: var(--dark-2);
+      border-left: 3px solid var(--gold);
+      padding: 24px;
+      border-radius: 8px;
+      transition: all 0.4s ease;
+    }
+
+    .step:hover {
+      transform: translateX(8px);
+      background: #0a0e12;
+    }
+
+    .final {
+      text-align: center;
+      background: linear-gradient(135deg, #1a2233, #0b0f14);
+    }
+
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+      cursor: pointer;
+      z-index: 999;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    }
+
+    .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 968px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(3,4,5,.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+
+      .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      nav a {
+        margin: 8px 0;
+        margin-left: 0;
+        width: auto;
+        padding: 12px 24px;
+        font-size: 18px;
+        text-align: center;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+
+      nav a:hover {
+        background: var(--dark-2);
+      }
+
+      .cta {
+        margin-left: 0;
+        margin-top: 16px;
+        padding: 14px 32px;
+        font-size: 18px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        z-index: 1001;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { 
+        font-size: 32px; 
+      }
+      
+      .hero p {
+        font-size: 16px;
+      }
+
+      .container {
+        padding: 60px 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      section h2 {
+        font-size: 26px;
+      }
+
+      .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .nav {
+        padding: 14px 20px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero {
+        padding: 80px 20px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-buttons a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">OBRY</div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-links">
+      <nav>
+        <a href="#proyecto">Proyecto</a>
+        <a href="#libro-obra">Libro de Obra</a>
+        <a href="#seguridad">Seguridad</a>
+        <a href="#herramientas">Herramientas</a>
+        <a href="#obry-gpt">Obry GPT</a>
+        <a class="cta" href="#demo">Solicitar Demo</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="hero reveal">
+  <h1>El sistema operativo de la construcción moderna</h1>
+  <p>
+    <strong>Obry</strong> centraliza la información del proyecto, potencia la colaboración del equipo
+    y garantiza la seguridad de los datos críticos de tu obra.
+  </p>
+  <div class="hero-buttons">
+    <a class="cta" href="#demo">Solicitar Demo</a>
+    <a class="btn-secondary" href="#como-usar">Conocer Más</a>
+  </div>
+</section>
+
+<section class="container reveal">
+  <h2>Una única fuente de verdad para tu obra</h2>
+  <p>
+    Toda la información del proyecto vive en un solo lugar, con control de accesos, historial de cambios y visibilidad total para equipos técnicos y directivos.
+  </p>
+</section>
+
+<section id="proyecto" class="container reveal">
+  <h2>Gestión Integral del Proyecto</h2>
+  <div class="grid">
+    <div class="card reveal">
+      <h3>👷 Personal</h3>
+      <p>Gestión de trabajadores con roles y permisos definidos.</p>
+    </div>
+    <div class="card reveal">
+      <h3>🧱 Materiales</h3>
+      <p>Control de insumos, costos y consumo por obra.</p>
+    </div>
+    <div class="card reveal">
+      <h3>🚜 Maquinaria</h3>
+      <p>Seguimiento de equipos, uso y responsabilidad.</p>
+    </div>
+    <div class="card reveal">
+      <h3>📋 Archivos Técnicos</h3>
+      <p>Documentación protegida con versiones y permisos.</p>
+    </div>
+  </div>
+</section>
+
+<section id="libro-obra" class="container reveal">
+  <h2>Libro de Obra Digital y Auditable</h2>
+  <p>
+    Registrá el avance diario, incidencias, clima y decisiones técnicas
+    con trazabilidad completa y respaldo legal.
+  </p>
+  <div class="grid">
+    <div class="card reveal">
+      <h3>📝 Registros Diarios</h3>
+      <p>Información inalterable y con historial.</p>
+    </div>
+    <div class="card reveal">
+      <h3>✍️ Reportes Firmados</h3>
+      <p>Documentos oficiales con validez técnica.</p>
+    </div>
+    <div class="card reveal">
+      <h3>📚 Historial Completo</h3>
+      <p>Toda la obra documentada y protegida.</p>
+    </div>
+  </div>
+</section>
+
+<section id="seguridad" class="container reveal">
+  <h2>Seguridad de Datos</h2>
+  <p>
+    Diseñado para constructoras que manejan información crítica y requieren
+    estándares altos de seguridad y control.
+  </p>
+  <div class="grid">
+    <div class="card reveal">
+      <h3>🔐 Control de Accesos</h3>
+      <p>Roles, permisos y visibilidad por usuario.</p>
+    </div>
+    <div class="card reveal">
+      <h3>🔍 Trazabilidad Total</h3>
+      <p>Registro de cada cambio y acción.</p>
+    </div>
+    <div class="card reveal">
+      <h3>🛡️ Protección de Datos</h3>
+      <p>Información resguardada bajo los más altos estándares.</p>
+    </div>
+  </div>
+</section>
+
+<section id="obry-gpt" class="container reveal">
+  <h2>Obry GPT</h2>
+  <p>
+    Un ingeniero virtual que analiza los datos del proyecto, entiende
+    las normativas de Paraguay y asiste al equipo técnico.
+  </p>
+  <div class="grid">
+    <div class="card reveal">
+      <h3>🤖 Análisis del Proyecto</h3>
+      <p>Contexto real basado en datos de la obra.</p>
+    </div>
+    <div class="card reveal">
+      <h3>📖 Normativas Locales</h3>
+      <p>Reglamentos aplicados al proyecto.</p>
+    </div>
+    <div class="card reveal">
+      <h3>💬 Soporte Técnico</h3>
+      <p>Respuestas claras y documentadas.</p>
+    </div>
+  </div>
+</section>
+
+<section id="herramientas" class="container reveal">
+  <h2>Herramientas Diarias para Ingenieros</h2>
+  <p>
+    Obry incluye herramientas prácticas que los ingenieros usan todos los días
+    en obra, centralizadas en una sola app.
+  </p>
+  <div class="grid">
+    <div class="card reveal">
+      <h3>📊 Reportes Meteorológicos</h3>
+      <p>Condiciones climáticas actualizadas y registro histórico para planificación de tareas críticas.</p>
+    </div>
+    <div class="card reveal">
+      <h3>💰 Buscador de Costos</h3>
+      <p>Precios actualizados de materiales, equipos y mano de obra del mercado local.</p>
+    </div>
+    <div class="card reveal">
+      <h3>📐 Herramientas de Medición</h3>
+      <p>Calculadoras de volúmenes, áreas, conversiones de unidades y estimaciones rápidas.</p>
+    </div>
+    <div class="card reveal">
+      <h3>📱 Acceso desde Obra</h3>
+      <p>Todas las herramientas disponibles offline en tu dispositivo móvil.</p>
+    </div>
+    <div class="card reveal">
+      <h3>📸 Registro Fotográfico</h3>
+      <p>Captura y organiza fotos con metadatos automáticos de ubicación y fecha.</p>
+    </div>
+    <div class="card reveal">
+      <h3>⏱️ Control de Tiempos</h3>
+      <p>Seguimiento de jornadas, tareas y rendimientos en tiempo real.</p>
+    </div>
+  </div>
+</section>
+
+<section id="como-usar" class="container reveal">
+  <h2>Cómo se Usa Obry</h2>
+  <div class="workflow">
+    <div class="step reveal">
+      <h3>1. Organizás</h3>
+      <p>Proyectos, equipos y recursos.</p>
+    </div>
+    <div class="step reveal">
+      <h3>2. Colaboran</h3>
+      <p>Todos con información segura y actualizada.</p>
+    </div>
+    <div class="step reveal">
+      <h3>3. Controlás</h3>
+      <p>Avances, registros y decisiones.</p>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="container final reveal">
+  <h2>Control Total, Datos Seguros, Obras Mejor Gestionadas</h2>
+  <div class="hero-buttons">
+    <a class="cta" href="https://wa.me/595972117101?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20Obry" target="_blank">Solicitar Demo</a>
+    <a class="btn-secondary" href="https://wa.me/595972117101?text=Hola%2C%20quiero%20información%20sobre%20Obry" target="_blank">Contactar por WhatsApp</a>
+  </div>
+</section>
+
+<!-- WhatsApp Float Button -->
+<a href="https://wa.me/595972117101?text=Hola%2C%20me%20interesa%20Obry" target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 32 32">
+    <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.257 1.408 1.417-5.263-0.321-0.527c-1.331-2.182-2.037-4.673-2.037-7.256 0-7.467 6.079-13.547 13.547-13.547s13.547 6.079 13.547 13.547c0 7.467-6.079 13.547-13.547 13.547zM21.447 18.894c-0.365-0.182-2.159-1.065-2.494-1.187s-0.577-0.182-0.821 0.182c-0.243 0.365-0.942 1.187-1.155 1.431s-0.426 0.274-0.791 0.091c-0.365-0.182-1.542-0.568-2.937-1.811-1.086-0.968-1.818-2.164-2.031-2.529s-0.022-0.562 0.161-0.744c0.165-0.164 0.365-0.426 0.548-0.639s0.243-0.365 0.365-0.608c0.122-0.243 0.061-0.456-0.030-0.639s-0.821-1.977-1.125-2.708c-0.296-0.712-0.598-0.616-0.821-0.628-0.213-0.011-0.456-0.013-0.699-0.013s-0.639 0.091-0.973 0.456c-0.335 0.365-1.278 1.249-1.278 3.045s1.308 3.533 1.491 3.776c0.182 0.243 2.569 3.921 6.224 5.498 0.869 0.375 1.547 0.599 2.076 0.767 0.874 0.277 1.669 0.238 2.297 0.144 0.701-0.105 2.159-0.883 2.463-1.735s0.304-1.582 0.213-1.735c-0.091-0.152-0.335-0.243-0.699-0.426z"/>
+  </svg>
+</a>
+
+<footer>
+  © 2025 Obry Tech · El sistema operativo de la construcción moderna.
+</footer>
+
+<script>
+  // Smooth scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+  // Mobile menu toggle
+  function toggleMenu() {
+    const toggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    toggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  }
+
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const toggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      toggle.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+  });
+
+  // Add active state to header on scroll
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+      header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+    } else {
+      header.style.boxShadow = 'none';
+    }
+    
+    lastScroll = currentScroll;
+  });
+</script>
+
+</body>
+</html>
