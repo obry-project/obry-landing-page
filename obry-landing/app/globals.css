@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+:root {
+  --dark: #030405;
+  --dark-2: #040508;
+  --gold: gold;
+  --gold-soft: #f1d17e;
+  --text: #E5E7EB;
+  --muted: #9CA3AF;
+  --border: #1f2933;
+}
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
