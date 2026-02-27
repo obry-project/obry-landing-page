@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-outfit)', 'sans-serif'],
+      },
       keyframes: {
         fadeInUp: {
           'from': { opacity: '0', transform: 'translateY(30px)' },
