@@ -7,12 +7,12 @@ const ConstructionScene = dynamic(() => import('./ConstructionScene'), {
 })
 export default function Hero() {
   return (
-    <section className="py-24 px-6 bg-[radial-gradient(circle_at_top,#1a2233,var(--dark))] reveal">
+    <section className="py-16 px-6 bg-[radial-gradient(circle_at_top,#f8fafc,var(--dark))] reveal">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="text-left animate-[fadeInUp_1s_ease] z-10 relative">
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            El sistema operativo de la <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--gold)] to-[#ffe680]">construcción</span> moderna
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)]">
+            El sistema operativo de la <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--gold-deep)] to-[var(--gold)]">construcción</span> moderna
           </h1>
           <p className="mt-6 text-lg text-[var(--muted)] max-w-[500px]">
             Centraliza la información del proyecto, potencia la colaboración del equipo
@@ -27,7 +27,7 @@ export default function Hero() {
             </Link>
             <Link 
               href="#como-usar"
-              className="px-6 py-3.5 rounded-lg border border-[var(--border)] bg-black/40 backdrop-blur-md text-white hover:border-[var(--gold)] hover:text-[var(--gold)] hover:-translate-y-0.5 transition-all"
+              className="px-6 py-3.5 rounded-lg border border-[var(--border)] bg-white/50 backdrop-blur-md text-[var(--text)] hover:border-[var(--gold)] hover:text-[var(--gold-deep)] hover:-translate-y-0.5 transition-all"
             >
               Conocer Más
             </Link>
