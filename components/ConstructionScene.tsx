@@ -9,14 +9,14 @@ function MetricOverlay({ position, title, value, status, delay = 0, isMobile }: 
   return (
     <Html position={position} center className="pointer-events-none">
       <div 
-        className={`bg-black/90 backdrop-blur-md border border-[var(--border)] rounded-lg animate-[fadeIn_0.5s_ease_forwards] ${isMobile ? 'p-1.5 w-24' : 'p-3 w-44 shadow-[0_0_20px_rgba(255,215,0,0.1)]'}`}
+        className={`bg-white/95 backdrop-blur-md border border-slate-200 rounded-lg animate-[fadeIn_0.5s_ease_forwards] ${isMobile ? 'p-1.5 w-24' : 'p-3 w-44 shadow-[0_8px_20px_rgba(0,0,0,0.08)]'}`}
         style={{ animationDelay: `${delay}s`, opacity: 0 }}
       >
-        <div className={`text-[var(--muted)] uppercase tracking-wider mb-0.5 ${isMobile ? 'text-[6px]' : 'text-[10px]'}`}>{title}</div>
-        <div className={`text-white font-bold leading-tight mb-0.5 ${isMobile ? 'text-xs' : 'text-xl'}`}>{value}</div>
+        <div className={`text-slate-500 uppercase tracking-wider mb-0.5 ${isMobile ? 'text-[6px]' : 'text-[10px]'}`}>{title}</div>
+        <div className={`text-slate-900 font-bold leading-tight mb-0.5 ${isMobile ? 'text-xs' : 'text-xl'}`}>{value}</div>
         <div className="flex items-center gap-1">
-          <div className={`rounded-full ${status === 'success' ? 'bg-[#00ff88] animate-pulse shadow-[0_0_5px_#00ff88]' : 'bg-blue-400'} ${isMobile ? 'w-1 h-1' : 'w-1.5 h-1.5'}`}></div>
-          <span className={`text-[var(--muted)] ${isMobile ? 'text-[6px]' : 'text-[10px]'}`}>En tiempo real</span>
+          <div className={`rounded-full ${status === 'success' ? 'bg-[#10b981]' : 'bg-blue-500'} ${isMobile ? 'w-1 h-1' : 'w-1.5 h-1.5'}`}></div>
+          <span className={`text-slate-400 ${isMobile ? 'text-[6px]' : 'text-[10px]'}`}>En tiempo real</span>
         </div>
       </div>
     </Html>
@@ -42,15 +42,15 @@ function FloatingDrone({ delay, radius, speed, height }: { delay: number, radius
     <group ref={meshRef}>
       <mesh>
         <sphereGeometry args={[0.06, 16, 16]} />
-        <meshStandardMaterial color="#222" metalness={1} roughness={0.1} emissive="#000" />
+        <meshStandardMaterial color="#475569" metalness={0.8} roughness={0.2} />
       </mesh>
       <mesh position={[0, -0.3, 0]}>
         <coneGeometry args={[0.2, 0.6, 16]} />
-        <meshBasicMaterial color="#00ff88" transparent={true} opacity={0.2} />
+        <meshBasicMaterial color="#10b981" transparent={true} opacity={0.1} />
       </mesh>
       <mesh position={[0.06, 0, 0]}>
         <sphereGeometry args={[0.02, 8, 8]} />
-        <meshBasicMaterial color="#00ff88" />
+        <meshBasicMaterial color="#10b981" />
       </mesh>
     </group>
   )
@@ -61,7 +61,7 @@ function FuturisticBuilding({ isMobile }: { isMobile: boolean }) {
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.25
+      groupRef.current.rotation.y += delta * 0.2
       groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.05 - (isMobile ? 1.5 : 0.8)
     }
   })
@@ -77,12 +77,12 @@ function FuturisticBuilding({ isMobile }: { isMobile: boolean }) {
     <group ref={groupRef} scale={isMobile ? 0.6 : 0.65}>
       <mesh position={[0, totalHeight / 2, 0]}>
         <boxGeometry args={[coreWidth, totalHeight + 0.5, coreWidth]} />
-        <meshStandardMaterial color="#050505" emissive="#000000" metalness={1} roughness={0.2} />
+        <meshStandardMaterial color="#020617" metalness={0.8} roughness={0.1} />
       </mesh>
 
       <mesh position={[0, totalHeight / 2, 0]}>
         <cylinderGeometry args={[coreWidth * 0.8, coreWidth * 0.8, totalHeight + 1, 8]} />
-        <meshStandardMaterial color="#1a1a1a" metalness={0.8} />
+        <meshStandardMaterial color="#0f172a" metalness={1} roughness={0} />
       </mesh>
 
       {Array.from({ length: floors }).map((_, i) => {
@@ -96,24 +96,24 @@ function FuturisticBuilding({ isMobile }: { isMobile: boolean }) {
               <>
                 <mesh position={[0, -floorHeight / 2 + 0.05, 0]}>
                   <boxGeometry args={[buildingWidth, 0.1, buildingDepth]} />
-                  <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.3} />
+                  <meshStandardMaterial color="#0f172a" metalness={0.9} roughness={0.1} />
                 </mesh>
                 
                 <mesh position={[buildingWidth/2 - 0.05, 0, buildingWidth/2 - 0.05]}>
-                  <boxGeometry args={[0.1, floorHeight, 0.1]} />
-                  <meshStandardMaterial color="#333" metalness={1} />
+                  <boxGeometry args={[0.05, floorHeight, 0.05]} />
+                  <meshStandardMaterial color="#334155" metalness={1} />
                 </mesh>
                 <mesh position={[-buildingWidth/2 + 0.05, 0, buildingWidth/2 - 0.05]}>
-                  <boxGeometry args={[0.1, floorHeight, 0.1]} />
-                  <meshStandardMaterial color="#333" metalness={1} />
+                  <boxGeometry args={[0.05, floorHeight, 0.05]} />
+                  <meshStandardMaterial color="#334155" metalness={1} />
                 </mesh>
                 <mesh position={[buildingWidth/2 - 0.05, 0, -buildingWidth/2 + 0.05]}>
-                  <boxGeometry args={[0.1, floorHeight, 0.1]} />
-                  <meshStandardMaterial color="#333" metalness={1} />
+                  <boxGeometry args={[0.05, floorHeight, 0.05]} />
+                  <meshStandardMaterial color="#334155" metalness={1} />
                 </mesh>
                 <mesh position={[-buildingWidth/2 + 0.05, 0, -buildingWidth/2 + 0.05]}>
-                  <boxGeometry args={[0.1, floorHeight, 0.1]} />
-                  <meshStandardMaterial color="#333" metalness={1} />
+                  <boxGeometry args={[0.05, floorHeight, 0.05]} />
+                  <meshStandardMaterial color="#334155" metalness={1} />
                 </mesh>
 
                 <mesh position={[0, 0, 0]}>
@@ -121,8 +121,8 @@ function FuturisticBuilding({ isMobile }: { isMobile: boolean }) {
                   <meshStandardMaterial 
                     color="#000"
                     emissive={Math.random() > 0.5 ? "#ffd700" : "#000"} 
-                    emissiveIntensity={0.8}
-                    metalness={1} roughness={0} transparent opacity={0.85}
+                    emissiveIntensity={0.4}
+                    metalness={1} roughness={0.05} transparent opacity={0.9}
                   />
                 </mesh>
               </>
@@ -149,15 +149,15 @@ function FuturisticBuilding({ isMobile }: { isMobile: boolean }) {
 
       <mesh position={[0, -0.05, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[buildingWidth, buildingWidth + 1.2, 8]} />
-        <meshBasicMaterial color="#ffd700" transparent opacity={0.2} wireframe side={THREE.DoubleSide} />
+        <meshBasicMaterial color="#ffd700" transparent opacity={0.15} wireframe side={THREE.DoubleSide} />
       </mesh>
       
       <mesh position={[0, -0.15, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[buildingWidth + 1.5, buildingWidth + 1.6, 64]} />
-        <meshBasicMaterial color="#ffd700" transparent opacity={0.4} side={THREE.DoubleSide} />
+        <meshBasicMaterial color="#334155" transparent opacity={0.4} side={THREE.DoubleSide} />
       </mesh>
 
-      <gridHelper args={[20, 20, '#ffd700', '#222']} position={[0, -0.3, 0]} material-opacity={0.1} material-transparent={true} />
+      <gridHelper args={[20, 20, '#cbd5e1', '#f1f5f9']} position={[0, -0.3, 0]} material-opacity={0.3} material-transparent={true} />
 
       <FloatingDrone delay={0} radius={2.2} speed={0.8} height={totalHeight * 0.9} />
       <FloatingDrone delay={Math.PI} radius={2.8} speed={0.5} height={totalHeight * 0.5} />
@@ -195,10 +195,11 @@ export default function ConstructionScene() {
   return (
     <div className="w-full h-[500px] md:h-[700px] relative">
       <Canvas camera={{ position: isMobile ? [5, 3, 7] : [6, 4, 8], fov: 45 }}>
-        <ambientLight intensity={1.5} color="#ffffff" />
-        <directionalLight position={[5, 10, 5]} intensity={2.5} color="#ffffff" />
-        <directionalLight position={[-10, 5, -10]} intensity={4} color="#00ff88" />
-        <directionalLight position={[10, 5, -10]} intensity={2} color="#ffd700" />
+        <color attach="background" args={['#ffffff']} />
+        <ambientLight intensity={2} color="#ffffff" />
+        <pointLight position={[10, 10, 10]} intensity={1.5} />
+        <directionalLight position={[5, 10, 5]} intensity={1.5} color="#ffffff" />
+        <directionalLight position={[-10, 5, -10]} intensity={0.5} color="#ffffff" />
         
         <FuturisticBuilding isMobile={isMobile} />
       </Canvas>
