@@ -476,16 +476,14 @@ function Building({ isMobile }: { isMobile: boolean }) {
 
 const MIN_R   = 3.5
 const MAX_R   = 18
-const MIN_PHI = 0.12
-const MAX_PHI = Math.PI / 2 - 0.05
 const TARGET_Y = 2.8
 
 function CameraController({ isMobile }: { isMobile: boolean }) {
   const { gl } = useThree()
 
   const azimuth  = useRef(0)
-  const polar    = useRef(isMobile ? 0.55 : 0.5)
-  const radius   = useRef(isMobile ? 14 : 15)
+  const polar    = useRef(1.1)
+  const radius   = useRef(isMobile ? 8.5 : 9.5)
   const velAz    = useRef(0)
   const velPol   = useRef(0)
   const velZoom  = useRef(0)
@@ -527,11 +525,8 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
       lastX.current = e.clientX
       lastY.current = e.clientY
       const dAz  = dx * 0.008
-      const dPol = dy * 0.006
       azimuth.current -= dAz
-      polar.current    = Math.max(MIN_PHI, Math.min(MAX_PHI, polar.current + dPol))
       velAz.current    = -dAz
-      velPol.current   = dPol
     }
     const onPointerUp = (e: PointerEvent) => {
       dragging.current = false
@@ -581,11 +576,8 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
         lastX.current = e.touches[0].clientX
         lastY.current = e.touches[0].clientY
         const dAz  = ddx * 0.008
-        const dPol = ddy * 0.006
         azimuth.current -= dAz
-        polar.current    = Math.max(MIN_PHI, Math.min(MAX_PHI, polar.current + dPol))
         velAz.current    = -dAz
-        velPol.current   = dPol
       }
     }
     const onTouchEnd = () => {
@@ -620,16 +612,14 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
     if (!dragging.current && !pinching.current) {
       if (isUser.current) {
         velAz.current   *= 0.90
-        velPol.current  *= 0.88
         velZoom.current *= 0.88
         azimuth.current  += velAz.current
-        polar.current     = Math.max(MIN_PHI, Math.min(MAX_PHI, polar.current + velPol.current))
         radius.current    = Math.max(MIN_R,   Math.min(MAX_R,   radius.current + velZoom.current))
       } else {
         autoAngle.current  += 0.0012
         azimuth.current     = autoAngle.current
-        polar.current      += (0.48 - polar.current) * 0.02
-        const defaultR      = isMobile ? 14 : 15
+        polar.current      += (1.1 - polar.current) * 0.02
+        const defaultR      = isMobile ? 8.5 : 9.5
         radius.current     += (defaultR - radius.current) * 0.02
       }
     }
@@ -722,7 +712,7 @@ export default function ConstructionScene() {
         zIndex: 10,
       }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+          <path d="M5 9l-3 3 3 3M19 9l3 3-3 3M2 12h20"/>
         </svg>
         <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 500, fontFamily: 'system-ui, sans-serif', whiteSpace: 'nowrap' }}>
           {isMobile ? 'Arrastra · Pellizca para zoom' : 'Arrastra · Scroll para zoom'}
