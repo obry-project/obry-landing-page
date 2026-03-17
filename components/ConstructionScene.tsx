@@ -219,10 +219,16 @@ function Building({ isMobile }: { isMobile: boolean }) {
     if (buildingRef.current) buildingRef.current.position.y = Math.sin(t * 0.4) * 0.015
     if (beaconRef.current)   beaconRef.current.visible = Math.sin(t * 1.8) > 0.3
     if (craneJibRef.current) craneJibRef.current.rotation.y = Math.sin(t * 0.12) * 0.4
-    const swayX = Math.sin(t * 0.7) * 0.18
-    const swayZ = Math.cos(t * 0.5) * 0.06
-    if (ropeRef.current) { ropeRef.current.position.x = BW + 0.9 + swayX; ropeRef.current.position.z = swayZ }
-    if (loadRef.current) { loadRef.current.position.x = BW + 0.9 + swayX; loadRef.current.position.z = swayZ }
+    const swayX = Math.sin(t * 0.7) * 0.08
+    const swayZ = Math.cos(t * 0.5) * 0.08
+    if (ropeRef.current) {
+      ropeRef.current.position.x = -1.8 + swayX
+      ropeRef.current.position.z = swayZ
+    }
+    if (loadRef.current) {
+      loadRef.current.position.x = -1.8 + swayX
+      loadRef.current.position.z = swayZ
+    }
   })
 
   const corners: [number, number, number][] = [
@@ -412,9 +418,10 @@ function Building({ isMobile }: { isMobile: boolean }) {
         </mesh>
       </group>
 
-      <group ref={craneJibRef} position={[BW+0.9, 0, 0]}>
-        <mesh position={[0, (TOTAL_H*1.05)/2, 0]} castShadow>
-          <boxGeometry args={[0.09, TOTAL_H*1.05, 0.09]} />
+      <group position={[BW + 0.9, 0, 0]}>
+        {/* Static Mast */}
+        <mesh position={[0, (TOTAL_H * 1.05) / 2, 0]} castShadow>
+          <boxGeometry args={[0.09, TOTAL_H * 1.05, 0.09]} />
           <meshStandardMaterial color="#f59e0b" roughness={0.45} metalness={0.65} />
         </mesh>
         {[0.3, 0.6, 0.9, 1.2, 1.5, 1.8].map((h, i) => (
@@ -423,36 +430,45 @@ function Building({ isMobile }: { isMobile: boolean }) {
               <cylinderGeometry args={[0.012, 0.012, 0.22, 4]} />
               <meshStandardMaterial color="#d97706" roughness={0.5} metalness={0.6} />
             </mesh>
-            <mesh position={[-0.04, h+0.1, 0.04]} rotation={[0, 0, -0.3]}>
+            <mesh position={[-0.04, h + 0.1, 0.04]} rotation={[0, 0, -0.3]}>
               <cylinderGeometry args={[0.012, 0.012, 0.22, 4]} />
               <meshStandardMaterial color="#d97706" roughness={0.5} metalness={0.6} />
             </mesh>
           </group>
         ))}
-        <mesh position={[-1.4, TOTAL_H*1.02, 0]} castShadow>
-          <boxGeometry args={[3.2, 0.065, 0.065]} />
-          <meshStandardMaterial color="#f59e0b" roughness={0.45} metalness={0.65} />
-        </mesh>
-        <mesh position={[1.1, TOTAL_H*1.02, 0]} castShadow>
-          <boxGeometry args={[1.0, 0.065, 0.065]} />
-          <meshStandardMaterial color="#f59e0b" roughness={0.45} metalness={0.65} />
-        </mesh>
-        <mesh position={[1.7, TOTAL_H*1.01, 0]}>
-          <boxGeometry args={[0.35, 0.22, 0.22]} />
-          <meshStandardMaterial color="#d97706" roughness={0.5} metalness={0.6} />
-        </mesh>
-        <mesh position={[0, TOTAL_H*1.05+0.08, 0]}>
-          <boxGeometry args={[0.15, 0.18, 0.15]} />
-          <meshStandardMaterial color="#d97706" roughness={0.4} metalness={0.7} />
-        </mesh>
-        <mesh ref={ropeRef} position={[0, TOTAL_H*0.54, 0]}>
-          <cylinderGeometry args={[0.007, 0.007, TOTAL_H*0.5, 4]} />
-          <meshStandardMaterial color="#1e293b" roughness={0.9} metalness={0.1} />
-        </mesh>
-        <mesh ref={loadRef} position={[0, TOTAL_H*0.28, 0]}>
-          <boxGeometry args={[0.28, 0.18, 0.28]} />
-          <meshStandardMaterial color="#374151" roughness={0.7} metalness={0.5} />
-        </mesh>
+
+        {/* Rotating Jib */}
+        <group ref={craneJibRef} position={[0, TOTAL_H * 1.05, 0]}>
+          {/* Main Arm */}
+          <mesh position={[-1.2, 0, 0]} castShadow>
+            <boxGeometry args={[3.2, 0.065, 0.065]} />
+            <meshStandardMaterial color="#f59e0b" roughness={0.45} metalness={0.65} />
+          </mesh>
+          {/* Counterweight Arm */}
+          <mesh position={[0.6, 0, 0]} castShadow>
+            <boxGeometry args={[1.2, 0.065, 0.065]} />
+            <meshStandardMaterial color="#f59e0b" roughness={0.45} metalness={0.65} />
+          </mesh>
+          {/* Counterweight */}
+          <mesh position={[1.1, -0.1, 0]}>
+            <boxGeometry args={[0.35, 0.22, 0.22]} />
+            <meshStandardMaterial color="#d97706" roughness={0.5} metalness={0.6} />
+          </mesh>
+          {/* Top Cabin/Cap */}
+          <mesh position={[0, 0.1, 0]}>
+            <boxGeometry args={[0.15, 0.18, 0.15]} />
+            <meshStandardMaterial color="#d97706" roughness={0.4} metalness={0.7} />
+          </mesh>
+          {/* Rope and Load */}
+          <mesh ref={ropeRef} position={[-1.8, -TOTAL_H * 0.25, 0]}>
+            <cylinderGeometry args={[0.007, 0.007, TOTAL_H * 0.5, 4]} />
+            <meshStandardMaterial color="#1e293b" roughness={0.9} metalness={0.1} />
+          </mesh>
+          <mesh ref={loadRef} position={[-1.8, -TOTAL_H * 0.5, 0]}>
+            <boxGeometry args={[0.28, 0.18, 0.28]} />
+            <meshStandardMaterial color="#374151" roughness={0.7} metalness={0.5} />
+          </mesh>
+        </group>
       </group>
 
       <Drone radius={2.2} speed={0.55} height={TOTAL_H*0.88} offset={0} />
@@ -476,16 +492,14 @@ function Building({ isMobile }: { isMobile: boolean }) {
 
 const MIN_R   = 3.5
 const MAX_R   = 18
-const MIN_PHI = 0.12
-const MAX_PHI = Math.PI / 2 - 0.05
 const TARGET_Y = 2.8
 
 function CameraController({ isMobile }: { isMobile: boolean }) {
   const { gl } = useThree()
 
   const azimuth  = useRef(0)
-  const polar    = useRef(isMobile ? 0.55 : 0.5)
-  const radius   = useRef(isMobile ? 14 : 15)
+  const polar    = useRef(1.1)
+  const radius   = useRef(isMobile ?  15: 17)
   const velAz    = useRef(0)
   const velPol   = useRef(0)
   const velZoom  = useRef(0)
@@ -527,11 +541,8 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
       lastX.current = e.clientX
       lastY.current = e.clientY
       const dAz  = dx * 0.008
-      const dPol = dy * 0.006
       azimuth.current -= dAz
-      polar.current    = Math.max(MIN_PHI, Math.min(MAX_PHI, polar.current + dPol))
       velAz.current    = -dAz
-      velPol.current   = dPol
     }
     const onPointerUp = (e: PointerEvent) => {
       dragging.current = false
@@ -581,11 +592,8 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
         lastX.current = e.touches[0].clientX
         lastY.current = e.touches[0].clientY
         const dAz  = ddx * 0.008
-        const dPol = ddy * 0.006
         azimuth.current -= dAz
-        polar.current    = Math.max(MIN_PHI, Math.min(MAX_PHI, polar.current + dPol))
         velAz.current    = -dAz
-        velPol.current   = dPol
       }
     }
     const onTouchEnd = () => {
@@ -620,16 +628,14 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
     if (!dragging.current && !pinching.current) {
       if (isUser.current) {
         velAz.current   *= 0.90
-        velPol.current  *= 0.88
         velZoom.current *= 0.88
         azimuth.current  += velAz.current
-        polar.current     = Math.max(MIN_PHI, Math.min(MAX_PHI, polar.current + velPol.current))
         radius.current    = Math.max(MIN_R,   Math.min(MAX_R,   radius.current + velZoom.current))
       } else {
         autoAngle.current  += 0.0012
         azimuth.current     = autoAngle.current
-        polar.current      += (0.48 - polar.current) * 0.02
-        const defaultR      = isMobile ? 14 : 15
+        polar.current      += (1.1 - polar.current) * 0.02
+        const defaultR      = isMobile ? 15 : 17
         radius.current     += (defaultR - radius.current) * 0.02
       }
     }
@@ -722,7 +728,7 @@ export default function ConstructionScene() {
         zIndex: 10,
       }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+          <path d="M5 9l-3 3 3 3M19 9l3 3-3 3M2 12h20"/>
         </svg>
         <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 500, fontFamily: 'system-ui, sans-serif', whiteSpace: 'nowrap' }}>
           {isMobile ? 'Arrastra · Pellizca para zoom' : 'Arrastra · Scroll para zoom'}
