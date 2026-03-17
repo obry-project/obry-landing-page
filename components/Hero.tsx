@@ -8,7 +8,7 @@ const ConstructionScene = dynamic(() => import('./ConstructionScene'), {
 export default function Hero() {
   return (
     <section className="py-16 px-6 bg-[radial-gradient(circle_at_top,#f8fafc,var(--dark))] reveal">
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-[1200px] mx-auto my-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="text-left animate-[fadeInUp_1s_ease] z-10 relative">
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)]">

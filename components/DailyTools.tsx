@@ -12,7 +12,6 @@ const dailyToolsFeatures = [
     description: 'Captura de evidencias visuales con sello de tiempo y ubicación automática.',
     theme: 'gold' as const
   },
-  { icon: <Smartphone size={24} strokeWidth={1.5} />, title: 'Modo Offline', description: 'Continúa trabajando sin conexión; sincronización automática.', theme: 'purple' as const },
 ]
 
 export default function DailyTools() {
