@@ -46,8 +46,6 @@ export default function Hero() {
               </div>
               <p>
                 <span className="font-semibold text-black">Primeros usuarios ya en lista de espera</span>
-                <span className="mx-2">·</span>
-                Usado en Paraguay y Argentina
               </p>
             </div>
           </div>
