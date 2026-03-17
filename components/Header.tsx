@@ -46,10 +46,11 @@ export default function Header() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {[
-              ['Funciones', '#funciones'],
+              ['Inicio', '#funciones'],
               ['Libro de Obra', '#libro-obra'],
               ['Seguridad', '#seguridad'],
-              ['Manual', '#manual']
+              ['Obry GPT', '#obry-gpt'],
+              ['Cómo funciona', '#como-usar']
             ].map(([label, href]) => (
               <Link 
                 key={label} 
@@ -94,10 +95,11 @@ export default function Header() {
           </div>
           <nav className="flex flex-col gap-8">
             {[
-              ['Funciones', '#funciones'],
+              ['Inicio', '#funciones'],
               ['Libro de Obra', '#libro-obra'],
               ['Seguridad', '#seguridad'],
-              ['Manual', '#manual']
+              ['Obry GPT', '#obry-gpt'],
+              ['Cómo funciona', '#como-usar']
             ].map(([label, href]) => (
               <Link 
                 key={label} 
