@@ -483,7 +483,7 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
 
   const azimuth  = useRef(0)
   const polar    = useRef(1.1)
-  const radius   = useRef(isMobile ? 8.5 : 9.5)
+  const radius   = useRef(isMobile ?  15: 17)
   const velAz    = useRef(0)
   const velPol   = useRef(0)
   const velZoom  = useRef(0)
@@ -619,7 +619,7 @@ function CameraController({ isMobile }: { isMobile: boolean }) {
         autoAngle.current  += 0.0012
         azimuth.current     = autoAngle.current
         polar.current      += (1.1 - polar.current) * 0.02
-        const defaultR      = isMobile ? 8.5 : 9.5
+        const defaultR      = isMobile ? 15 : 17
         radius.current     += (defaultR - radius.current) * 0.02
       }
     }
