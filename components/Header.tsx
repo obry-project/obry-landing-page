@@ -35,13 +35,12 @@ export default function Header() {
         }`}
       >
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-black flex items-center justify-center rounded-xl rotate-45 group-hover:rotate-12 transition-all duration-500 shadow-lg">
-              <span className="text-[var(--gold)] font-bold text-xl -rotate-45 group-hover:-rotate-12 transition-all duration-500">O</span>
-            </div>
-            <span className="text-2xl font-bold tracking-tight text-[var(--text)]">
-              Obry
-            </span>
+          <Link href="/" className="flex items-center gap-2 group">
+            <img 
+              src="/logo.svg" 
+              alt="Obry Logo" 
+              className="h-8 md:h-10 w-auto transition-transform duration-500 group-hover:scale-105" 
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -83,7 +82,9 @@ export default function Header() {
       <div className={`fixed inset-0 bg-white/98 backdrop-blur-xl z-[150] md:hidden transition-all duration-500 ${isMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'}`}>
         <div className="flex flex-col h-full p-8">
           <div className="flex items-center justify-between mb-12">
-            <Link href="/" className="text-2xl font-bold tracking-tight text-[var(--text)]">Obry</Link>
+            <Link href="/" className="group" onClick={() => setIsMenuOpen(false)}>
+              <img src="/logo.svg" alt="Obry" className="h-8 w-auto" />
+            </Link>
             <button 
               onClick={() => setIsMenuOpen(false)} 
               className="w-12 h-12 flex items-center justify-center rounded-full bg-slate-100 text-slate-900 border border-slate-200"
