@@ -476,7 +476,7 @@ function Building({ isMobile }: { isMobile: boolean }) {
 
 const MIN_R   = 3.5
 const MAX_R   = 18
-const MIN_PHI = 0.5
+const MIN_PHI = 0.12
 const MAX_PHI = Math.PI / 2 - 0.05
 const TARGET_Y = 2.8
 
